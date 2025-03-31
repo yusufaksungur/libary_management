@@ -1,24 +1,27 @@
 class Kitap:
-    def __init__(self, kitapadi, yazaradi, sayfasayisi):
+    def __init__(self, kitapadi, yazaradi, sayfasayisi, yayinevi, raf_no):
         self.kitapadi = kitapadi
         self.yazaradi = yazaradi
         self.sayfasayisi = sayfasayisi
+        self.yayinevi = yayinevi
+        self.raf_no = raf_no
+        
 
     def bilgiler(self):
-        return f"📖 Kitap Adı: {self.kitapadi}, ✍️ Yazar: {self.yazaradi}, 📄 Sayfa Sayısı: {self.sayfasayisi}"
+        return f"📖 Kitap Adı: {self.kitapadi}, ✍️ Yazar: {self.yazaradi}, 📄 Sayfa Sayısı: {self.sayfasayisi}, Yayınevi: {self.yayinevi}, Raf Numarası: {self.raf_no}"
 
 
 class KitapYoneticisi:
     def __init__(self):
         self.kitaplar = []
 
-    def kitap_ekle(self, kitapadi, yazaradi, sayfasayisi):
+    def kitap_ekle(self, kitapadi, yazaradi, sayfasayisi, yayinevi, raf_no):
         """Yeni bir kitap ekler."""
         try:
-            if not kitapadi or not yazaradi or sayfasayisi <= 0:
+            if not kitapadi or not yazaradi or sayfasayisi  <= 0:
                 raise ValueError("⚠️ Geçersiz kitap bilgileri!")
 
-            yeni_kitap = Kitap(kitapadi, yazaradi, sayfasayisi)
+            yeni_kitap = Kitap(kitapadi, yazaradi, sayfasayisi, yayinevi, raf_no)
             self.kitaplar.append(yeni_kitap)
             print(f"✅ {kitapadi} adlı kitap başarıyla eklendi!")
         except ValueError as e:
@@ -32,6 +35,13 @@ class KitapYoneticisi:
             print("\n📚 Kütüphanedeki Kitaplar:")
             for kitap in self.kitaplar:
                 print(kitap.bilgiler())
+                
+    def kitap_bul(self, kitapadi):
+        for kitap in self.kitaplar:
+            if kitap.kitapadi.lower() == kitapadi.lower():
+                print(f"📖 Kitap Bulundu: {kitap.bilgiler()}")
+                return
+        print("⚠️ Belirtilen kitap bulunamadı!")
 
     def kitap_sil(self, kitapadi):
         """Belirtilen kitabı siler."""
