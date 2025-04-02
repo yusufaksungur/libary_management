@@ -44,13 +44,19 @@ class KitapYoneticisi:
         print("⚠️ Belirtilen kitap bulunamadı!")
 
     def kitap_sil(self, kitapadi):
-        """Belirtilen kitabı siler."""
+        
+        bulunan_kitap = None
         for kitap in self.kitaplar:
             if kitap.kitapadi.lower() == kitapadi.lower():
-                self.kitaplar.remove(kitap)
-                print(f"🗑️ {kitapadi} adlı kitap silindi.")
-                return
-        print("⚠️ Belirtilen kitap bulunamadı!")
+                bulunan_kitap = kitap
+                break  # İlk eşleşen kitabı bul ve çık
+        
+        if bulunan_kitap:
+            self.kitaplar.remove(bulunan_kitap)
+            print(f"🗑️ {kitapadi} adlı kitap silindi.")
+        else:
+            print("⚠️ Belirtilen kitap bulunamadı!")
+
 
     def toplam_kitap_sayisi(self):
         """Toplam kitap sayısını döndürür."""
